@@ -3,28 +3,25 @@
 Bullet::Bullet(VECTOR startPos)
 {
     pos = startPos;
-    vel = VGet(0.0f, 0.0f, -5.0f); // Zマイナス方向に飛ばす
+    size = VGet(20.0f, 20.0f, 20.0f);   // 当たり判定BOX
+    vel = VGet(0.0f, 0.0f, -5.0f); // -Z方向に飛ばす
 }
 
 void Bullet::Update()
 {
     pos = VAdd(pos, vel);
-
-    // 遠く行ったら消す
-    if (pos.z < -1000.0f)
-    {
-        isAlive = false;
-    }
 }
 
 void Bullet::Draw()
 {
-    DrawSphere3D(
-        pos,
-        GetRadius(),
-        8,
+    VECTOR minPos = VSub(pos, size);
+    VECTOR maxPos = VAdd(pos, size);
+
+    DrawCube3D(
+        minPos,
+        maxPos,
         GetColor(255, 0, 0),
-        GetColor(255, 0, 0),
-        TRUE
+        GetColor(255, 255, 255),
+        FALSE
     );
 }

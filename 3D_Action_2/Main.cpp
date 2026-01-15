@@ -3,18 +3,6 @@
 #include "Stage.h"
 #include "Bullet.h"
 
-bool CheckSphereHit(VECTOR aPos, float aR, VECTOR bPos, float bR)
-{
-    float dx = aPos.x - bPos.x;
-    float dy = aPos.y - bPos.y;
-    float dz = aPos.z - bPos.z;
-
-    float distSq = dx * dx + dy * dy + dz * dz;
-    float hitDist = aR + bR;
-
-    return distSq <= hitDist * hitDist;
-}
-
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -62,12 +50,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         ClearDrawScreen();
 
         // 描画
-        stage.Update();  // ステージ更新
+        stage.Update(player.pos);  // ステージ更新
         player.Update();  // プレイヤー更新
-        
+        DrawFormatString(10, 10, GetColor(255, 255, 255),
+            "PlayerPos x: %.2f z: %.2f", player.pos.x, player.pos.z);
         // 更新
         stage.Draw();    // ステージ描画
         player.Draw();    // プレイヤー描画
+
+        if (CheckHitKey(KEY_INPUT_LSHIFT))
+        {
+            player.DrawHitBox();    // プレイヤー当たり判定描画
+        }
 
         ScreenFlip();
     }

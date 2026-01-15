@@ -4,6 +4,7 @@ Player::Player()
 {
     model = MV1LoadModel("Res/Miku/Miku.mv1");
     pos = VGet(0.0f, 0.0f, 0.0f);
+    size = VGet(5.0f, 20.0f, 10.0f); // ïùÅEçÇÇ≥ÅEâúçs
     
     MV1SetScale(model, VGet(1.0f, 1.0f, 1.0f));
 
@@ -114,4 +115,18 @@ void Player::Move()
 void Player::Draw()
 {
     MV1DrawModel(model);
+}
+
+void Player::DrawHitBox()
+{
+    VECTOR minPos = VSub(pos, size);
+    VECTOR maxPos = VAdd(pos, size);
+
+    DrawCube3D(
+        minPos,
+        maxPos,
+        GetColor(255, 255, 255),
+        GetColor(255, 255, 255),
+        FALSE
+    );
 }

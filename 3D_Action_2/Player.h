@@ -8,10 +8,12 @@ public:
     Player();
     void Update();
     void Draw();
+    void DrawHitBox();
     void Move();
     void ChangeAnimation(int anim_id);
 
     VECTOR pos;              // キャラクター位置取得
+    VECTOR size;      // 当たり判定BOXサイズ
 
     float angleY = 0;        // ラジアン(方向角度)
 
@@ -24,10 +26,6 @@ private:
     float anim_timer = 0.0f; // 再生中の時間
 
     bool isGround = true;    // 接地しているか
-
-    VECTOR GetHitPos() const { return pos; }
-    float  GetHitRadius() const { return 15.0f; } // 仮半径
-
 };
 
 
