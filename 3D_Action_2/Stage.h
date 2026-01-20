@@ -4,10 +4,12 @@
 
 struct FloorTile
 {
-    int grid_x, grid_z;   // ¡–ÚÀ•W
+    int grid_x;   // ¡–ÚÀ•W
+    int grid_z;   // ¡–ÚÀ•W
     VECTOR pos;
     VECTOR size;
     bool stepped;         // “¥‚Ü‚ê‚½‚©
+    bool exists;          // °‚ª‚ ‚é‚©
 };
 
 class Stage

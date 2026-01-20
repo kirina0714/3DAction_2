@@ -28,6 +28,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
     while (ProcessMessage() == 0)
     {
+        ClearDrawScreen();
+
+        // 更新
+        stage.Update(player.pos);  // ステージ更新
+        player.Update();  // プレイヤー更新
 
         // カメラ追従（TPS）
         float camDis = 80.0f;   // プレイヤーとの距離
@@ -47,16 +52,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
         SetCameraPositionAndTarget_UpVecY(camPos, camTag);
 
-        ClearDrawScreen();
-
         // 描画
-        stage.Update(player.pos);  // ステージ更新
-        player.Update();  // プレイヤー更新
-        DrawFormatString(10, 10, GetColor(255, 255, 255),
-            "PlayerPos x: %.2f z: %.2f", player.pos.x, player.pos.z);
-        // 更新
         stage.Draw();    // ステージ描画
         player.Draw();    // プレイヤー描画
+
+        DrawFormatString(10, 10, GetColor(255, 255, 255),
+            "プレイヤー座標 x: %.2f z: %.2f", player.pos.x, player.pos.z);
 
         if (CheckHitKey(KEY_INPUT_LSHIFT))
         {

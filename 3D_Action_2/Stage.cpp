@@ -18,6 +18,15 @@ Stage::Stage()
             tiles[index].pos = VGet(x * 16.0f, 0.0f, z * 16.0f);
             tiles[index].size = VGet(8.0f, 2.0f, 8.0f);
             tiles[index].stepped = false;
+
+            tiles[index].exists = true;  // 基本は床あり
+
+            // 中央を穴にする
+            if (x == 1 && z == 1)
+            {
+                tiles[index].exists = false;
+            }
+
             index++;
         }
     }
@@ -32,9 +41,13 @@ void Stage::Update(const VECTOR& playerPos)
 
     // 範囲外チェック
     if (gx < 0 || gx >= GRID_W || gz < 0 || gz >= GRID_H)
+    {
         return;
-
+    }
+        
     int index = gz * GRID_W + gx;
+
+    FloorTile& tile = tiles[index];
 
     if (!tiles[index].stepped)
     {
@@ -56,10 +69,13 @@ void Stage::Draw()
             ? GetColor(0, 200, 255)   // 踏んだ後
             : GetColor(200, 200, 200); // 未踏
 
+        VECTOR minPos = tiles[i].pos;
+        VECTOR maxPos = VAdd(tiles[i].pos, VGet(16.0f, 4.0f, 16.0f));
+
         // 底面
         DrawCube3D(
-            tiles[i].pos,
-            tiles[i].size,
+            minPos,
+            maxPos,
             color,
             color,
             TRUE
@@ -67,8 +83,8 @@ void Stage::Draw()
 
         // 枠線（黒）
         DrawCube3D(
-            tiles[i].pos,
-            tiles[i].size,
+            minPos,
+            maxPos,
             GetColor(0, 0, 0),
             GetColor(0, 0, 0),
             FALSE
