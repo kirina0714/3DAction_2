@@ -2,6 +2,8 @@
 #include "DxLib.h"
 #include <cmath>
 
+class Stage; // 前方宣言
+
 class Player
 {
 public:
@@ -11,6 +13,9 @@ public:
     void DrawHitBox();
     void Move();
     void ChangeAnimation(int anim_id);
+
+    void SetStage(Stage* stage_);
+    void SetGridPos(int gx, int gz);
 
     VECTOR pos;              // キャラクター位置取得
     VECTOR size;      // 当たり判定BOXサイズ
@@ -26,6 +31,8 @@ private:
     float anim_timer = 0.0f; // 再生中の時間
 
     bool isGround = true;    // 接地しているか
+
+    Stage* stage = nullptr;
 };
 
 

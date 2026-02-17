@@ -27,6 +27,19 @@ void Player::ChangeAnimation(int anim_id)
     anim_timer = 0.0f;
 }
 
+void Player::SetGridPos(int gx, int gz) 
+{ 
+    const float TILE_SIZE = 16.0f; 
+    pos.x = gx * TILE_SIZE + TILE_SIZE / 2; 
+    pos.z = gz * TILE_SIZE + TILE_SIZE / 2; 
+    pos.y = 5.0f; MV1SetPosition(model, pos); 
+}
+
+void Player::SetStage(Stage* stage_)
+{
+    stage = stage_;
+}
+
 void Player::Update()
 {
     Move();
@@ -85,23 +98,18 @@ void Player::Move()
         ChangeAnimation(0);
     }
 
-    pos.x += move.x * moveSpeed;
-    pos.z += move.z * moveSpeed;
+    pos.x += move.x * speed;
+    pos.z += move.z * speed;
 
-    //if(isMoving)
-    //{
-    //    move = VNorm(move);
-    //     
-    //    //ƒJƒƒ‰iŒ»Ý‚ÌŒü‚«jŠî€‚É“ü—Í‚ð‰ñ“]
-    //    float sinY = sinf(angleY);
-    //    float cosY = cosf(angleY);
-    //    VECTOR dir;
-    //    dir.x = move.x * cosY + move.z * sinY;
-    //    dir.z = move.z * cosY - move.x * sinY;
-    //    angleY = atan2(dir.x, dir.z);
-    //    pos.x += dir.x * speed;
-    //    pos.z += dir.z * speed;
-    //}
+    /*
+        VECTOR nextPos = pos; 
+        nextPos.x += move.x * speed; 
+        nextPos.z += move.z * speed; 
+        if (stage && stage->CanEnter(nextPos)) 
+        { 
+            pos = nextPos; 
+        }
+    */
 
     if (isMoving)
     {
