@@ -98,18 +98,14 @@ void Player::Move()
         ChangeAnimation(0);
     }
 
-    pos.x += move.x * speed;
-    pos.z += move.z * speed;
+    VECTOR nextPos = pos;
+    nextPos.x += move.x * speed;
+    nextPos.z += move.z * speed;
 
-    /*
-        VECTOR nextPos = pos; 
-        nextPos.x += move.x * speed; 
-        nextPos.z += move.z * speed; 
-        if (stage && stage->CanEnter(nextPos)) 
-        { 
-            pos = nextPos; 
-        }
-    */
+    if (!stage || stage->CanEnter(nextPos))
+    {
+        pos = nextPos;
+    }
 
     if (isMoving)
     {

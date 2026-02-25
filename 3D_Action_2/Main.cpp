@@ -22,7 +22,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
     Player player;                          // プレイヤー生成
     Stage stage;                         // ステージ生成
 
-    player.SetStage(&stage); // ← これを必ず追加
+    player.SetStage(&stage); 
     player.SetGridPos(1, 1); // 初期位置（必要なら）
     
     SetCameraNearFar(1.0f, 1000.0f);
